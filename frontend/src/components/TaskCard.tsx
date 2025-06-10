@@ -10,7 +10,7 @@ import {
   AlertCircle,
   Flag
 } from 'lucide-react';
-import { format, isAfter, isBefore, startOfDay } from 'date-fns';
+import { format, isBefore, startOfDay } from 'date-fns';
 
 interface TaskCardProps {
   task: Task;

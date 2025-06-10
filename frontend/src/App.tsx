@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Task, TaskStatus, Priority, CreateTaskData, UpdateTaskData } from './types/task';
 import { useTasks } from './hooks/useTasks';
 import { TaskCard } from './components/TaskCard';
@@ -33,26 +33,23 @@ function App() {
     deleteTask,
   } = useTasks(filters);
 
-  const handleCreateTask = async (data: CreateTaskData) => {
+  const handleSubmitTask = async (data: CreateTaskData | UpdateTaskData) => {
     setIsSubmitting(true);
-    const success = await createTask(data);
-    setIsSubmitting(false);
+    let success;
     
-    if (success) {
-      setShowForm(false);
+    if (editingTask) {
+      success = await updateTask(editingTask.id, data as UpdateTaskData);
+      if (success) {
+        setEditingTask(null);
+      }
+    } else {
+      success = await createTask(data as CreateTaskData);
+      if (success) {
+        setShowForm(false);
+      }
     }
-  };
-
-  const handleUpdateTask = async (data: UpdateTaskData) => {
-    if (!editingTask) return;
     
-    setIsSubmitting(true);
-    const success = await updateTask(editingTask.id, data);
     setIsSubmitting(false);
-    
-    if (success) {
-      setEditingTask(null);
-    }
   };
 
   const handleEditTask = (task: Task) => {
@@ -191,7 +188,7 @@ function App() {
       {(showForm || editingTask) && (
         <TaskForm
           task={editingTask || undefined}
-          onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
+          onSubmit={handleSubmitTask}
           onCancel={handleFormCancel}
           isSubmitting={isSubmitting}
         />

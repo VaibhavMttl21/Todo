@@ -1,4 +1,3 @@
-import React from 'react';
 import type { TaskStatus, Priority } from '../types/task';
 import { Filter, SortAsc, SortDesc } from 'lucide-react';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { TaskStats as TaskStatsType } from '../types/task';
 import { CheckCircle2, Clock, AlertTriangle, ListTodo } from 'lucide-react';
 

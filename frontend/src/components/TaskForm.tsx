@@ -4,7 +4,7 @@ import { X, Calendar, Flag, FileText } from 'lucide-react';
 
 interface TaskFormProps {
   task?: Task;
-  onSubmit: (data: CreateTaskData | UpdateTaskData) => void;
+  onSubmit: (data: CreateTaskData | UpdateTaskData) => Promise<void>;
   onCancel: () => void;
   isSubmitting?: boolean;
 }
@@ -53,7 +53,7 @@ export function TaskForm({ task, onSubmit, onCancel, isSubmitting = false }: Tas
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -67,7 +67,7 @@ export function TaskForm({ task, onSubmit, onCancel, isSubmitting = false }: Tas
       dueDate: formData.dueDate || undefined,
     };
 
-    onSubmit(submitData);
+    await onSubmit(submitData);
   };
 
   const handleInputChange = (field: string, value: string) => {
