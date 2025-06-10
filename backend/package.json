@@ -6,7 +6,7 @@
     "dev": "ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "db": "sudo docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres && npx prisma migrate dev",
+    "deploy": "npx prisma migrate deploy && npm start",
     "cron:ping": "ts-node src/cron/healthPing.ts"
   },
   "keywords": [],
