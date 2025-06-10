@@ -22,3 +22,14 @@ model Task {
 
   @@map("tasks")
 }
+
+enum TaskStatus {
+    PENDING
+    COMPLETED
+  }
+  
+enum Priority {
+    LOW
+    MEDIUM
+    HIGH
+  }
